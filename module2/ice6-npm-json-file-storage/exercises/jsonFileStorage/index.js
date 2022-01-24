@@ -49,6 +49,31 @@ const getTally = (rolls) => {
   return diceTally;
 };
 
+const readCallback = (err, jsonContentObj) => {
+  // Exit if there was an error
+  if (err) {
+    handleError(err);
+    return;
+  }
+
+  // Exit if key does not exist in DB
+  if (!(key in jsonContentObj)) {
+    console.error('Key does not exist');
+    // Call callback with relevant error message to let client handle
+    callback('Key does not exist');
+    return;
+  }
+
+  // Add input element to target array
+  jsonContentObj[key].push(latestRoll);
+
+  // assign the tally object as "frequencies"
+  const frequencies = getTally(jsonContentObj[key]);
+  jsonContentObj.frequencies = { ...frequencies };
+
+  console.log(`You rolled ${latestRoll}`);
+};
+
 /**
  * Command Start
  */
@@ -93,7 +118,6 @@ if (command === 'tally') {
       // assign the tally object as "frequencies"
       const frequencies = getTally(jsonContentObj[key]);
       jsonContentObj.frequencies = { ...frequencies };
-
       console.log(`You rolled ${latestRoll}`);
     },
 
@@ -106,7 +130,6 @@ if (command === 'tally') {
 
       const occurences = Object.values(JSON.parse(data).frequencies);
       const max = Math.max(...occurences);
-
       console.log(`The computer has rolled ${max} the most times.`);
     }
   );
