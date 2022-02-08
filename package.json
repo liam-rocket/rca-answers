@@ -19,6 +19,8 @@
   "homepage": "https://github.com/liam-rocket/rca-answers#readme",
   "keywords": [],
   "dependencies": {
+    "ejs": "^3.1.6",
+    "express": "^4.17.2",
     "talk-like-a": "^2.0.0"
   }
 }
