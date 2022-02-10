@@ -34,9 +34,15 @@ const getSightings = (request, response) => {
       'Report Class',
     ];
 
+    // only run the below logic if is a query param
     if (Object.keys(request.query).length > 0) {
+      // reassign the sortBy value using the query param
       sortBy = request.query.sortBy;
+
+      // transform the sortBy value (ie. Location Details) into the format that is found in the sightings objects (ie. LOCATION_DETAILS)
       let sortKey = sortBy.toUpperCase().replace('_', '_');
+
+      // sort them in a descending order
       data = data.map((row) => row[sortKey]).sort((a, b) => b - a);
     }
 
@@ -58,11 +64,15 @@ const getYears = (request, response) => {
     const sightings = jsonContentObj.sightings;
     const years = [];
 
+    // filter out the items that doesn't contain a YEAR value
     const filteredYears = sightings.filter((row) => row.YEAR);
+
+    // sort them in an descending order
     const sortedYears = filteredYears
       .map((row) => row.YEAR)
       .sort((a, b) => b - a);
 
+    // create an array of unique years
     sortedYears.forEach((year) => {
       if (!years.includes(year)) years.push(year);
     });
