@@ -13,7 +13,7 @@ const getSightings = (request, response) => {
     let data = jsonContentObj.sightings;
     let sortBy = 'Default';
 
-    // * MORE COMFORTABLE
+    // * MORE COMFORTABLE START
 
     const availableQueries = [
       'Year',
@@ -39,6 +39,8 @@ const getSightings = (request, response) => {
       let sortKey = sortBy.toUpperCase().replace('_', '_');
       data = data.map((row) => row[sortKey]).sort((a, b) => b - a);
     }
+
+    // * MORE COMFORTABLE END
 
     // Return HTML to client, merging "index" template with supplied data.
     response.render('sightings', {
