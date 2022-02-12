@@ -40,7 +40,7 @@ const getSightings = (request, response) => {
       sortBy = request.query.sortBy;
 
       // transform the sortBy value (ie. Location Details) into the format that is found in the sightings objects (ie. LOCATION_DETAILS)
-      let sortKey = sortBy.toUpperCase().replace('_', '_');
+      let sortKey = sortBy.toUpperCase().replace(' ', '_');
 
       // sort them in a descending order
       data = data.map((row) => row[sortKey]).sort((a, b) => b - a);
