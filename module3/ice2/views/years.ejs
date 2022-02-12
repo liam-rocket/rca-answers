@@ -4,11 +4,23 @@
     <link rel="stylesheet" href="styles.css" />
   </head>
   <body>
+    <h4>Year</h4>
     <% for (let i = 0; i < years.length; i+= 1) { %>
     <ul>
       <li>
-        <% const year = years[i] %> <% const link = `/year-sighting/${year}` %>
-        <a href="<%= link %>"> <%= year %> </a>
+        <% const year = years[i] %> <% const yearLink = `/year-sighting/${year}`
+        %>
+        <a href="<%= yearLink %>"> <%= year %> </a>
+      </li>
+    </ul>
+    <% } %>
+    <h4>Year Range</h4>
+    <% for (let j = 0; j < yearsRange.length; j+= 1) { %>
+    <ul>
+      <li>
+        <% const yearRange = yearsRange[j] %> <% const yearRangeLink =
+        `/year-sighting/${yearRange}` %>
+        <a href="<%= yearRangeLink %>"> <%= yearRange %> </a>
       </li>
     </ul>
     <% } %>

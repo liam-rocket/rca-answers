@@ -5,6 +5,25 @@ const app = express();
 
 app.set('view engine', 'ejs');
 
+const availableQueries = [
+  'Year',
+  'Season',
+  'Month',
+  'Date',
+  'State',
+  'Country',
+  'Location Details',
+  'Nearest Town',
+  'Nearest Road',
+  'Also Noticed',
+  'Other Witness',
+  'Other Stories',
+  'Time and Conditions',
+  'Environment',
+  'Report Number',
+  'Report Class',
+];
+
 // * BASE
 
 const getSightings = (request, response) => {
@@ -14,25 +33,6 @@ const getSightings = (request, response) => {
     let sortBy = 'Default';
 
     // * MORE COMFORTABLE START
-
-    const availableQueries = [
-      'Year',
-      'Season',
-      'Month',
-      'Date',
-      'State',
-      'Country',
-      'Location Details',
-      'Nearest Town',
-      'Nearest Road',
-      'Also Noticed',
-      'Other Witness',
-      'Other Stories',
-      'Time and Conditions',
-      'Environment',
-      'Report Number',
-      'Report Class',
-    ];
 
     // only run the below logic if is a query param
     if (Object.keys(request.query).length > 0) {
@@ -63,6 +63,7 @@ const getYears = (request, response) => {
   read('data.json', (err, jsonContentObj) => {
     const sightings = jsonContentObj.sightings;
     const years = [];
+    const yearsRange = [];
 
     // filter out the items that doesn't contain a YEAR value
     const filteredYears = sightings.filter((row) => row.YEAR);
@@ -74,10 +75,15 @@ const getYears = (request, response) => {
 
     // create an array of unique years
     sortedYears.forEach((year) => {
-      if (!years.includes(year)) years.push(year);
+      if (Number(year) && !years.includes(year)) {
+        years.push(year);
+        return;
+      } else if (!Number(year) && !yearsRange.includes(year)) {
+        yearsRange.push(year);
+      }
     });
 
-    response.render('years', { years });
+    response.render('years', { years, yearsRange });
   });
 };
 
@@ -85,9 +91,14 @@ const getYearSighting = (request, response) => {
   read('data.json', (err, jsonContentObj) => {
     const allSightings = jsonContentObj.sightings;
     const year = request.params.year;
+    let sortBy = 'Default';
 
     const yearSightings = allSightings.filter((row) => row.YEAR === year);
-    response.render('sightings', { sightings: yearSightings });
+    response.render('sightings', {
+      sightings: yearSightings,
+      sortBy,
+      queries: availableQueries,
+    });
   });
 };
 
