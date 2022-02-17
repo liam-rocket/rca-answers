@@ -123,8 +123,19 @@ const getSighting = (request, response) => {
     let sightingDataToShow = '';
 
     /**
-     * my very lazy way of displaying all the sighting metadata available to that sighting (except for OBSERVED)
-     * basically it's a for loop that loops through the object (mind the key <> value pair 😉)
+     * Below is my very lazy way of displaying all the sighting metadata available to that sighting (except for OBSERVED)
+     * I guess the only way to verify my sorting feature works is by displaying the data of all the available fields
+     * It's just a for loop that loops through the sighting object (mind the key <> value pair 😉)
+     *
+     * The format in which I am outputting the HTML tags is the same as the original version from Gitbook:
+     *
+     *                       KEY   |   VALUE
+     * Liam's way:        ----------------------
+     *                  <h1>${key}: ${value}</h1>
+     *
+     *                       KEY   |   VALUE
+     * Gitbook's way:     ----------------------
+     *                  <h1>YEAR: ${sighting.YEAR}</h1>
      */
 
     for (const [key, value] of Object.entries(sighting)) {
@@ -132,12 +143,6 @@ const getSighting = (request, response) => {
         sightingDataToShow += `<h1>${key}: ${value}</h1>`;
       }
     }
-
-    // <h1>${key}: ${value}</h1>
-
-    // <h1>YEAR: ${sighting.YEAR}</h1>
-    // <h1>STATE: ${sighting.STATE}</h1>
-    // <h1>OBSERVED: ${sighting.OBSERVED}</h1>
 
     const content = `
       <html>
