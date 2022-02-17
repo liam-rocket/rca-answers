@@ -14,15 +14,5 @@
       </li>
     </ul>
     <% } %>
-    <h4>Year Range</h4>
-    <% for (let j = 0; j < yearsRange.length; j+= 1) { %>
-    <ul>
-      <li>
-        <% const yearRange = yearsRange[j] %> <% const yearRangeLink =
-        `/year-sighting/${yearRange}` %>
-        <a href="<%= yearRangeLink %>"> <%= yearRange %> </a>
-      </li>
-    </ul>
-    <% } %>
   </body>
 </html>

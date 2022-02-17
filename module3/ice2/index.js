@@ -11,7 +11,7 @@ const availableQueries = [
   'Month',
   'Date',
   'State',
-  'Country',
+  'County',
   'Location Details',
   'Nearest Town',
   'Nearest Road',
@@ -29,8 +29,14 @@ const availableQueries = [
 const getSightings = (request, response) => {
   read('data.json', (err, jsonContentObj) => {
     // Obtain data to inject into EJS template
-    let data = jsonContentObj.sightings;
+    let sightingData = jsonContentObj.sightings;
     let sortBy = 'Default';
+
+    // assign an index to the sighting data that represents their ORIGINAL position
+    sightingData = sightingData.map((sighting, index) => ({
+      ...sighting,
+      index,
+    }));
 
     // * MORE COMFORTABLE START
 
@@ -43,14 +49,14 @@ const getSightings = (request, response) => {
       let sortKey = sortBy.toUpperCase().replace(' ', '_');
 
       // sort them in a descending order
-      data = data.map((row) => row[sortKey]).sort((a, b) => b - a);
+      sightingData = sightingData.sort((a, b) => b[sortKey] - a[sortKey]);
     }
 
     // * MORE COMFORTABLE END
 
     // Return HTML to client, merging "index" template with supplied data.
     response.render('sightings', {
-      sightings: data,
+      sightings: sightingData,
       queries: availableQueries,
       sortBy,
     });
@@ -83,7 +89,7 @@ const getYears = (request, response) => {
       }
     });
 
-    response.render('years', { years, yearsRange });
+    response.render('years', { years });
   });
 };
 
