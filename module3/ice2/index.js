@@ -32,13 +32,13 @@ const getSightings = (request, response) => {
     let sightingData = jsonContentObj.sightings;
     let sortBy = 'Default';
 
+    // * MORE COMFORTABLE START
+
     // assign an index to the sighting data that represents their ORIGINAL position
     sightingData = sightingData.map((sighting, index) => ({
       ...sighting,
       index,
     }));
-
-    // * MORE COMFORTABLE START
 
     // only run the below logic if is a query param
     if (Object.keys(request.query).length > 0) {
