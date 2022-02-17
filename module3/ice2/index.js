@@ -48,8 +48,15 @@ const getSightings = (request, response) => {
       // transform the sortBy value (ie. Location Details) into the format that is found in the sightings objects (ie. LOCATION_DETAILS)
       let sortKey = sortBy.toUpperCase().replace(' ', '_');
 
+      // filter out naughty item at sightingData[1] 😡
+      const filteredSightingData = sightingData.filter((sighting) =>
+        Object.values(sighting).every((value) => value)
+      );
+
       // sort them in a descending order
-      sightingData = sightingData.sort((a, b) => b[sortKey] - a[sortKey]);
+      sightingData = filteredSightingData.sort(
+        (a, b) => b[sortKey] - a[sortKey]
+      );
     }
 
     // * MORE COMFORTABLE END
@@ -112,15 +119,34 @@ const getSighting = (request, response) => {
   const index = request.params.index;
   read('data.json', (err, jsonContentObj) => {
     const sighting = jsonContentObj.sightings[index];
+
+    let sightingDataToShow = '';
+
+    /**
+     * my very lazy way of displaying all the sighting metadata available to that sighting (except for OBSERVED)
+     * basically it's a for loop that loops through the object (mind the key <> value pair 😉)
+     */
+
+    for (const [key, value] of Object.entries(sighting)) {
+      if (key !== null && value !== null) {
+        sightingDataToShow += `<h1>${key}: ${value}</h1>`;
+      }
+    }
+
+    // <h1>${key}: ${value}</h1>
+
+    // <h1>YEAR: ${sighting.YEAR}</h1>
+    // <h1>STATE: ${sighting.STATE}</h1>
+    // <h1>OBSERVED: ${sighting.OBSERVED}</h1>
+
     const content = `
-    <html>
-    <body>
-    <h1>YEAR: ${sighting.YEAR}</h1>
-    <h1>STATE: ${sighting.STATE}</h1>
-    <h1>OBSERVED: ${sighting.OBSERVED}</h1>
-    </body>
-    </html>
+      <html>
+        <body>
+          ${sightingDataToShow}
+        </body>
+      </html>
     `;
+
     response.send(content);
   });
 };
