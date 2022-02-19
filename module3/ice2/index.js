@@ -37,7 +37,7 @@ const getSightings = (request, response) => {
     // assign an index to the sighting data that represents their ORIGINAL position
     sightingData = sightingData.map((sighting, index) => ({
       ...sighting,
-      index,
+      id: index,
     }));
 
     // only run the below logic if is a query param
@@ -162,3 +162,11 @@ app.get('/year-sighting/:year', getYearSighting);
 app.get('/sightings/:index', getSighting);
 
 app.listen(3004);
+
+// (a.date_time > b.date_time) ? 1 : -1)
+
+if (a.date_time > b.date_time) {
+  return 1;
+} else {
+  return -1;
+}

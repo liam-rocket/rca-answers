@@ -18,8 +18,8 @@
 
       <% for(let i=0; i<sightings.length; i+= 1) { %>
         <ul>
-          <% const sightingIndex = sightings[i].index %>
-          <% const link = `/sightings/${sightingIndex}` %>
+          <% const sightingId = sightings[i].id %>
+          <% const link = `/sightings/${sightingId}` %>
           <% const index = i %>
           <a href="<%= link %>" >
             Sightings <%= index %>
