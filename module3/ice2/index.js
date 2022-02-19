@@ -54,8 +54,8 @@ const getSightings = (request, response) => {
       );
 
       // sort them in a descending order
-      sightingData = filteredSightingData.sort(
-        (a, b) => b[sortKey] - a[sortKey]
+      sightingData = sightingData.sort((a, b) =>
+        b[sortKey] > a[sortKey] ? 1 : -1
       );
     }
 
