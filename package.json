@@ -21,6 +21,7 @@
   "dependencies": {
     "ejs": "^3.1.6",
     "express": "^4.17.2",
+    "pg": "^8.7.3",
     "talk-like-a": "^2.0.0"
   }
 }
