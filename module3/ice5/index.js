@@ -91,6 +91,7 @@ if (action === 'cats') {
         console.log(`${index + 1}. ${cat.name}: Owner: ${owner.name}`); // 1. Fluffy: Owner: Jim
       });
     });
+    client.end();
   });
 }
 
@@ -158,6 +159,7 @@ if (action === 'c-create-cat') {
 
       console.log('Inserted');
     });
+    // client.end();
   });
 }
 
@@ -202,7 +204,7 @@ if (action === 'mc-owners') {
 
 if (action === 'mc-owners-range') {
   const rawInput = process.argv[3].split('');
-  const symbol = Number(rawInput[0])
+  const symbol = Number(rawInput[1])
     ? rawInput.shift()
     : rawInput.splice(0, 2).join(''); // '>' or '<' but also could be '=>'
 
