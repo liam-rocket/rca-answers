@@ -91,7 +91,7 @@ if (action === 'cats') {
         console.log(`${index + 1}. ${cat.name}: Owner: ${owner.name}`); // 1. Fluffy: Owner: Jim
       });
     });
-    client.end();
+    // client.end();
   });
 }
 
@@ -108,14 +108,13 @@ if (action === 'owners') {
     console.log('Owners: '); // example output line 1
 
     for (const owner of owners) {
-      console.log(`${owner.id}. ${owner.name}`);
-
       console.log('- Cats:');
       const findCatQuery = `SELECT * FROM cats WHERE owner_id = ${owner.id};`;
 
       client.query(findCatQuery, (err, res) => {
         const cats = res.rows;
 
+        console.log(`${owner.id}. ${owner.name}`);
         for (const cat of cats) {
           console.log(`- ${cat.name}`);
         }
