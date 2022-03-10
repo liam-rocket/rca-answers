@@ -14,6 +14,23 @@ const handleEmptyResult = () => {
 
 const action = process.argv[2];
 
+// const executionAction = (rows) => {
+//   rows.forEach((row) => console.log(`${row.id}. ${row.name}`));
+// };
+
+// const queryResultHandler = (job) => async (error, result) => {
+//   if (error) {
+//     handleQueryError(error);
+//     return;
+//   }
+//   if (result.rows.length <= 0) {
+//     handleEmptyResult();
+//     return;
+//   }
+
+//   job(result.rows);
+// };
+
 // Output Exercises
 if (action === 'exercises') {
   const query = `SELECT * FROM exercises;`;
@@ -31,6 +48,10 @@ if (action === 'exercises') {
     const rows = result.rows;
     rows.forEach((row) => console.log(`${row.id}. ${row.name}`));
   });
+
+  // Was experimenting with a technique that writes a function that returns a function :P
+  // uncomment the line below and executionAction + queryResultHandler to play around
+  // client.query(query, queryResultHandler(executionAction));
 }
 
 // Create Workouts (With Existing Exercises)
