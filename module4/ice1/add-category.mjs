@@ -6,8 +6,8 @@ import db from './db/models/index.model.js';
 //  Although a model is a class, you should not create instances by using the new operator directly. Sequelize provides the create method for this
 // https://sequelize.org/master/manual/model-instances.html
 
-db.Item.create({
-  name: process.argv[2],
+db.Category.create({
+  name: process.argv[3],
 })
   .then((item) => {
     console.log('success!');

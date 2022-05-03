@@ -1,7 +1,7 @@
 import { Sequelize } from 'sequelize';
 import allConfig from '../../sequelize.config.cjs';
 
-import initItemModel from './item.mjs';
+import initAttractionModel from './attraction.mjs';
 import initCategoryModel from './category.mjs';
 
 const env = process.env.NODE_ENV || 'development';
@@ -22,11 +22,11 @@ let sequelize = new Sequelize(
 );
 
 // here we are putting initItemModel from item.mjs into the object "db" (line 14)
-db.Item = initItemModel(sequelize, Sequelize.DataTypes);
+db.Attraction = initAttractionModel(sequelize, Sequelize.DataTypes);
 db.Category = initCategoryModel(sequelize, Sequelize.DataTypes);
 
 // A    belongsTo     B
-db.Item.belongsTo(db.Category);
+db.Attraction.belongsTo(db.Category);
 // A      hasMany      B
 db.Category.hasMany(db.Item);
 
